@@ -1,0 +1,54 @@
+.model small
+.stack 100h
+.data
+    msg1 db 'nhap ki tu dau: $'
+    xd db 10, 13,'$'
+    msg2 db 'nhap ki tu cuoi: $'
+    msg3 db 'chuoi: $'
+.code
+    lea ax, data
+    mov ds, ax
+    lea dx, msg1
+    mov ah, 9
+    int 21h
+    mov ah, 1
+    int 21h
+    mov bh, al
+    mov ah, 9
+    lea dx, xd
+    int 21h
+    lea dx, msg2
+    int 21h
+    mov ah, 1
+    int 21h
+    mov bl, al
+    lea dx, xd
+    mov ah, 9
+    int 21h
+    lea dx, msg3
+    int 21h
+    cmp bh, bl
+    jg lonhon
+    jmp nhohon
+    nhohon:
+        mov dl, bh
+        mov ah, 2
+        int 21h
+        inc bh
+        cmp bh, bl
+        jg thoat
+        jmp nhohon
+    lonhon:
+        mov dl, bh
+        mov ah, 2
+        int 21h
+        dec bh
+        cmp bl, bh
+        jg thoat
+        jmp lonhon
+        thoat:
+            mov ah, 4ch
+            int 21h
+        
+
+
