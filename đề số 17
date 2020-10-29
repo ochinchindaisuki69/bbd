@@ -1,0 +1,49 @@
+  ;Đề số 17: Viết chƣơng trình để nhập vào một xâu bất kỳ, in ra màn hình các ký tự
+không phải là chữ
+org 100h
+
+mov dx, offset tb
+mov ah, 9
+int 21h
+mov si, 0
+xor cx, cx
+
+nhap:
+    mov ah, 1
+    int 21h
+    cmp al, 13
+    je thoat
+    mov array[si], al
+    inc si
+    inc cx
+    jmp nhap
+    
+thoat:
+    mov dx, offset xd
+    mov ah, 9
+    int 21h
+    mov si, 0
+    lap:
+        mov dl, 0
+        mov dl, array[si]
+        cmp dl, 65
+        jge next1
+        cmp dl, 90
+        jge next1
+next1:
+    cmp dl, 97
+    jge next
+    cmp dl, 122
+    jge next
+    mov ah, 2
+    int 21h
+    inc si
+    loop lap
+next:
+    inc si
+    loop lap
+     
+    ret
+array db 100 dup(?)
+tb db 'nhap chuoi: $'
+xd db 10, 13,'$'
