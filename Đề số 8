@@ -27,6 +27,7 @@ mov ah, 9
 int 21h
 mov bh, mang[0]
 mov si, 1
+dec cx
 lap:
     cmp bh, mang[si]
     jg next
