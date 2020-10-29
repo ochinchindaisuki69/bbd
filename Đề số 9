@@ -1,0 +1,47 @@
+  ;Đề số 9: Viết chƣơng trình để nhập một mảng và in ra màn hình phần tử bé nhất trong
+mảng (chú ý: các phần tử mảng có giá trị nhỏ hơn 10)
+
+org 100h
+lea dx, tb 
+mov ah, 9
+int 21h
+mov si, 0
+mov cx, 0
+mov bh, 0
+nhap:
+    mov ah, 1
+    int 21h
+    cmp al, 13
+    je thoat
+    mov mang[si], al
+    inc si
+    inc cx
+    mov ah, 2
+    mov dl, 32
+    int 21h
+    jmp nhap
+
+thoat:
+lea dx, tb1
+mov ah, 9
+int 21h
+mov bh, mang[0]
+mov si, 1
+dec cx
+lap:
+    cmp mang[si], bh
+    jg next
+    mov bh, mang[si]
+next:
+    inc si
+    loop lap
+    
+    
+mov dl, bh
+mov ah, 2
+int 21h
+    
+ret
+mang db 1000 dup(?)
+tb db 'nhap mang: $'
+tb1 db 10, 13,'max = $'
