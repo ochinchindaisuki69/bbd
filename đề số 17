@@ -39,10 +39,10 @@ next1:
     int 21h
     inc si
     loop lap
+    ret
 next:
     inc si
-    loop lap
-     
+    loop lap 
     ret
 array db 100 dup(?)
 tb db 'nhap chuoi: $'
