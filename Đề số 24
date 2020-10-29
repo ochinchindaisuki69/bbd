@@ -1,0 +1,54 @@
+  ;Đề số 24: Cho 2 xâu ký tự S1 và S2, kiểm tra xem độ dài S1 và S2 có bằng nhau hay
+không? (Chú ý: Nhập 2 xâu bất kỳ có độ dài nhỏ hơn 10 ký tự).
+
+
+org 100h
+xor cx, cx
+lea dx, tb
+mov ah, 9
+int 21h
+
+call nhap_xau
+mov  bh, dl
+
+lea dx, tb1
+mov ah, 9
+int 21h
+
+call nhap_xau
+
+
+cmp dl, bh
+je bang
+
+mov dx, offset kb
+mov ah, 9
+int 21h
+ret
+bang:
+    mov dx, offset equal
+    mov ah, 9
+    int 21h
+    ret
+
+
+nhap_xau proc   
+nhap:
+    mov ah, 1
+    int 21h
+    cmp al, 13
+    je thoat
+    inc cl
+    jmp nhap
+    
+thoat:
+    mov dl, cl
+    mov cl, 0
+    ret 
+endp
+
+
+tb db 'xau1 : $'
+tb1 db 10,13,'xau 2: $'
+equal db 10, 13,'bang nhau $'
+kb db 10, 13,'khong bang 
