@@ -1,0 +1,39 @@
+org 100h
+
+mov dx, offset tb
+mov ah, 9
+int 21h
+mov si, 0
+xor cx, cx
+
+nhap:
+    mov ah, 1
+    int 21h
+    cmp al, 13
+    je thoat
+    mov array[si], al
+    inc si
+    inc cx
+    jmp nhap
+    
+thoat:
+    mov dx, offset xd
+    mov ah, 9
+    int 21h
+    mov si, 0
+    lap:
+        mov dl, 0
+        mov dl, array[si]
+        cmp dl, 48
+        jl next
+        cmp dl, 57
+        jg next
+        mov ah, 2
+        int 21h
+    next:
+        inc si
+        loop lap
+    ret
+array db 100 dup(?)
+tb db 'nhap chuoi: $'
+xd db 10, 13,'$'
